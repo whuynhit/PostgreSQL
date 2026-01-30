@@ -49,7 +49,7 @@ SELECT pg_size_pretty(pg_database_size('cadrtest'));
 SELECT pg_size_pretty(pg_total_relation_size('ttable'));
 
 -- Check associated sequence of a specific table column
-SELECT pg_get_serial_sequence('schema_name.table_name','<column_name')
+SELECT pg_get_serial_sequence('schema_name.table_name','column_name')
 
 -- Check for which users are currently connected.
 SELECT * FROM pg_stat_activity;

@@ -43,13 +43,13 @@ ORDER BY schemaname, relname;
 SELECT pg_size_pretty(pg_database_size(current_database()));
 
 -- Check specific database's storage usage.
-SELECT pg_size_pretty(pg_database_size('cadrtest'));
+SELECT pg_size_pretty(pg_database_size('database_name'));
 
 -- Check specific table storage usage
-SELECT pg_size_pretty(pg_total_relation_size('ttable'));
+SELECT pg_size_pretty(pg_total_relation_size('table_name'));
 
 -- Check associated sequence of a specific table column
-SELECT pg_get_serial_sequence('schema_name.table_name','column_name')
+SELECT pg_get_serial_sequence('schema_name.table_name','column_name');
 
 -- Check for which users are currently connected.
 SELECT * FROM pg_stat_activity;

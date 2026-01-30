@@ -39,7 +39,7 @@ SELECT
 FROM pg_catalog.pg_statio_user_tables
 ORDER BY schemaname, relname;
 
---Check current database storage usage.
+-- Check current database storage usage.
 SELECT pg_size_pretty(pg_database_size(current_database()));
 
 -- Check specific database's storage usage.

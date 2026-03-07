@@ -50,10 +50,10 @@ SELECT pg_size_pretty(pg_total_relation_size('table_name'));
 
 -- Check table size & estimated row count
 SELECT 
-    pg_size_pretty(pg_total_relation_size('prst.cadmv_transaction_sm_c')) AS current_size,
+    pg_size_pretty(pg_total_relation_size('table_name')) AS current_size,
     reltuples::bigint AS estimated_row_count
 FROM pg_class
-WHERE oid = 'prst.cadmv_transaction_sm_c'::regclass;
+WHERE oid = 'table_name'::regclass;
 
 -- Check associated sequence of a specific table column
 SELECT pg_get_serial_sequence('schema_name.table_name','column_name')

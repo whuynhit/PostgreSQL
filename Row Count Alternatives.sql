@@ -8,7 +8,8 @@ FROM schema.my_table t;
 SELECT
 COUNT(*),
 SUM(hashtext(t::text))
-FROM schema.my_table TABLESAMPLE SYSTEM (1) t;
+FROM schema.my_table t
+TABLESAMPLE SYSTEM (1); -- 1 - 1% sampling, 5 - 5% sampling
 
 -- Range Hashing
 SELECT

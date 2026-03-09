@@ -11,6 +11,11 @@ What to look for:
 2. OAST size: should roughly match expectations based on large columns; smaller than source indicates replication compacted it efficiently
 3. Indexes: should not show excessive bloat (if so, consider REINDEX)
 */
+-- 1️⃣ Set your table and schema as session variables
+SET my.table = 'my_table';
+SET my.schema = 'my_schema';
+
+-- 2️⃣ Single query using current_setting()
 WITH main_table AS (
     SELECT
         c.oid AS relid,
@@ -19,8 +24,10 @@ WITH main_table AS (
         pg_relation_size(c.oid) AS heap_size,
         pg_total_relation_size(c.oid) AS total_size
     FROM pg_class c
-    WHERE c.relname = 'my_table'
-      AND c.relkind = 'r'  -- regular table
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+    WHERE c.relname = current_setting('my.table')
+      AND n.nspname = current_setting('my.schema')
+      AND c.relkind = 'r'
 ),
 toast_table AS (
     SELECT
@@ -30,7 +37,13 @@ toast_table AS (
         pg_relation_size(c.oid) AS heap_size,
         pg_total_relation_size(c.oid) AS total_size
     FROM pg_class c
-    WHERE c.oid = (SELECT reltoastrelid FROM pg_class WHERE relname = 'my_table')
+    WHERE c.oid = (
+        SELECT reltoastrelid
+        FROM pg_class c2
+        JOIN pg_namespace n2 ON n2.oid = c2.relnamespace
+        WHERE c2.relname = current_setting('my.table')
+          AND n2.nspname = current_setting('my.schema')
+    )
 ),
 indexes AS (
     SELECT
@@ -41,7 +54,10 @@ indexes AS (
         pg_total_relation_size(i.indexrelid) AS total_size
     FROM pg_index i
     JOIN pg_class ci ON ci.oid = i.indexrelid
-    WHERE i.indrelid = (SELECT oid FROM pg_class WHERE relname = 'my_table')
+    JOIN pg_class c ON c.oid = i.indrelid
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+    WHERE c.relname = current_setting('my.table')
+      AND n.nspname = current_setting('my.schema')
 )
 SELECT
     type,

@@ -46,12 +46,8 @@ SELECT
     wait_event_type,
     wait_event,
     now() - query_start AS runtime,
-    temp_bytes,
-    pg_size_pretty(temp_bytes) AS temp_size,
     query
-FROM pg_stat_activity
-WHERE temp_bytes > 0
-ORDER BY temp_bytes DESC;
+FROM pg_stat_activity;
 
 -- Catch Long-Running / Heavy Queries
 SELECT

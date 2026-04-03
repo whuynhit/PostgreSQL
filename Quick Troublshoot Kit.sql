@@ -25,6 +25,60 @@ LIMIT 20;
 SELECT datname, tempfiles, pg_size_pretty(temp_bytes) AS temp_size
 FROM pg_stat_database;
 
+/* Find the Actual Offending Query
+
+What to look for:
+    Highest temp_bytes
+    Long runtime
+    state = active
+    Suspicious query patterns:
+        Large ORDER BY
+        JOIN without indexes
+        SELECT * on huge tables
+        ETL jobs 
+*/
+SELECT
+    pid,
+    usename,
+    application_name,
+    state,
+    wait_event_type,
+    wait_event,
+    now() - query_start AS runtime,
+    temp_bytes,
+    pg_size_pretty(temp_bytes) AS temp_size,
+    query
+FROM pg_stat_activity
+WHERE temp_bytes > 0
+ORDER BY temp_bytes DESC;
+
+-- Catch Long-Running / Heavy Queries
+SELECT
+    pid,
+    usename,
+    application_name,
+    now() - query_start AS runtime,
+    state,
+    query
+FROM pg_stat_activity
+WHERE state = 'active'
+ORDER BY runtime DESC
+LIMIT 20;
+
+-- Look for Sort/Hash Spills (Indirect Signal)
+SELECT
+    query,
+    calls,
+    total_exec_time,
+    temp_blks_written,
+    temp_blks_read
+FROM pg_stat_statements
+ORDER BY temp_blks_written DESC
+LIMIT 10;
+
+-- Kill the Right Query (Safely)
+SELECT pg_terminate_backend(<pid>);
+
 -- Long-running transaction blocking vacuum
 SELECT pid, now() - xact_start AS duration, query
 FROM pg_stat_activity

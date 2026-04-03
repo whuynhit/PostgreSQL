@@ -22,8 +22,9 @@ ORDER BY n_dead_tup DESC
 LIMIT 20;
 
 -- Bulk load/runaway job
-SELECT datname, tempfiles, pg_size_pretty(temp_bytes) AS temp_size
-FROM pg_stat_database;
+SELECT datname, temp_files, pg_size_pretty(temp_bytes) AS temp_size
+FROM pg_stat_database
+ORDER BY temp_bytes DESC;
 
 /* Find the Actual Offending Query
 

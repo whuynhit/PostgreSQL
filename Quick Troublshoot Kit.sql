@@ -22,7 +22,7 @@ ORDER BY n_dead_tup DESC
 LIMIT 20;
 
 -- Bulk load/runaway job
-SELECT datname, pg_size_pretty(temp_bytes) AS temp_size
+SELECT datname, tempfiles, pg_size_pretty(temp_bytes) AS temp_size
 FROM pg_stat_database;
 
 -- Long-running transaction blocking vacuum

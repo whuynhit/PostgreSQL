@@ -31,6 +31,17 @@ FROM pg_database
 WHERE datname NOT IN ('template0','template1')
 ORDER BY database_type, database_name;
 
+-- List storage size of all schema in a database.
+SELECT
+    nspname AS schema_name,
+    pg_size_pretty(SUM(pg_total_relation_size(c.oid))::bigint) AS total_size
+FROM pg_catalog.pg_class c
+LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+WHERE nspname NOT IN ('pg_catalog', 'information_schema', 'pg_toast')
+AND c.relkind IN ('r', 'i', 'mv', 't') -- r: table, i: index, mv: materialized view, t: toast table
+GROUP BY nspname
+ORDER BY SUM(pg_total_relation_size(c.oid)) DESC;
+
 -- Lists storage usage for all tables within current database.
 SELECT 
 	schemaname AS schema,	
@@ -48,6 +59,29 @@ SELECT
 	pg_size_pretty(pg_total_relation_size(relid)) AS total_size
 FROM pg_catalog.pg_statio_user_tables
 ORDER BY pg_total_relation_size(relid) DESC;
+
+-- List all objects and their size within current database.
+SELECT 
+    n.nspname AS schema_name,
+    c.relname AS object_name,
+    CASE 
+	WHEN c.relkind = 'r' THEN 'table'
+	WHEN c.relkind = 'i' THEN 'index'
+	WHEN c.relkind = 'S' THEN 'sequence'
+	WHEN c.relkind = 't' THEN 'TOAST'
+	WHEN c.relkind = 'v' THEN 'view'
+	WHEN c.relkind = 'm' THEN 'materialized view'
+	WHEN c.relkind = 'c' THEN 'composite type'
+	WHEN c.relkind = 'f' THEN 'foreign table'
+	WHEN c.relkind = 'p' THEN 'partitioned table'
+	WHEN c.relkind = 'I' THEN 'partitioned index'
+	ELSE 'other'
+    END AS type,
+    pg_size_pretty(pg_total_relation_size(c.oid)) AS total_size
+FROM pg_class c
+JOIN pg_namespace n ON n.oid = c.relnamespace
+WHERE n.nspname NOT IN ('pg_catalog', 'information_schema')
+ORDER BY pg_total_relation_size(c.oid) DESC;
 
 -- Check current database storage usage.
 SELECT pg_size_pretty(pg_database_size(current_database()));

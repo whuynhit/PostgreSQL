@@ -95,6 +95,11 @@ ORDER BY pg_total_relation_size(c.oid) DESC;
 -- Check current database storage usage.
 SELECT pg_size_pretty(pg_database_size(current_database()));
 
+-- Check sum of the size of all objects from all schema within current database.
+SELECT
+	pg_size_pretty(SUM(pg_relation_size(c.oid))::bigint) AS total_size
+FROM pg_class c
+
 -- Check specific database's storage usage.
 SELECT pg_size_pretty(pg_database_size('database_name'));
 

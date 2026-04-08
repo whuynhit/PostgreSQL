@@ -34,11 +34,11 @@ ORDER BY database_type, database_name;
 -- List storage size of all schema in currnet database.
 SELECT
     n.nspname AS schema_name,
-    SUM(pg_total_relation_size(c.oid)) AS total_bytes
+    pg_size_pretty(SUM(pg_total_relation_size(c.oid))::bigint) AS total_size
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
 GROUP BY n.nspname
-ORDER BY total_bytes DESC;
+ORDER BY SUM(pg_total_relation_size(c.oid)) DESC;
 
 -- List storage size of all user schema in currnet database.
 SELECT

@@ -6,11 +6,15 @@ GRANT USAGE ON SCHEMA public TO $databaseName_ro;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO $databaseName_ro;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public
 GRANT SELECT ON TABLES TO $databaseName_ro;
+ALTER DEFAULT PRIVILEGES FOR ROLE $creatorRole IN SCHEMA public
+GRANT SELECT ON TABLES TO $databaseName_ro;
 
 -- Grants Read-only permissions to $customSchema schema from $databaseName db
 GRANT USAGE ON SCHEMA $customSchema TO $databaseName_ro;
 GRANT SELECT ON ALL TABLES IN SCHEMA $customSchema TO $databaseName_ro;
 ALTER DEFAULT PRIVILEGES IN SCHEMA $customSchema
+GRANT SELECT ON TABLES TO $databaseName_ro;
+ALTER DEFAULT PRIVILEGES FOR ROLE $creatorRole IN SCHEMA $customSchema
 GRANT SELECT ON TABLES TO $databaseName_ro;
 
 

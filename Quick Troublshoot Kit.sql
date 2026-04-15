@@ -81,3 +81,22 @@ SELECT pid, now() - xact_start AS duration, query
 FROM pg_stat_activity
 WHERE xact_start IS NOT NULL
 ORDER BY duration DESC;
+
+-- Check if specific user's connections are using SSL/TLS based on matching pid
+SELECT 
+	a.pid,
+	a.usename,
+	a.datname,
+	a.client_addr,
+	a.application_name,
+	a.state,
+	s.ssl,
+	s.version as ssl_version,
+	s.cipher,
+	query_start,
+	now() - query_start as duration
+FROM pg_stat_activity a
+INNER JOIN pg_stat_ssl s
+ON a.pid = s.pid
+WHERE usename = 'username'
+ORDER BY s.pid;

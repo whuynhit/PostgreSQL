@@ -89,7 +89,7 @@ SELECT
     pg_size_pretty(pg_total_relation_size(c.oid)) AS total_size
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
-WHERE n.nspname NOT IN ('pg_catalog', 'information_schema')
+WHERE n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
 ORDER BY pg_total_relation_size(c.oid) DESC;
 
 -- Check current database storage usage.

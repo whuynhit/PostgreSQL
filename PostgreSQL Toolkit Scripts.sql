@@ -46,7 +46,7 @@ SELECT
     pg_size_pretty(SUM(pg_total_relation_size(c.oid))::bigint) AS total_size
 FROM pg_catalog.pg_class c
 LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
-WHERE nspname NOT IN ('pg_catalog', 'information_schema', 'pg_toast')
+WHERE nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
 AND c.relkind IN ('r', 'i', 'mv', 't') -- r: table, i: index, mv: materialized view, t: toast table
 GROUP BY nspname
 ORDER BY SUM(pg_total_relation_size(c.oid)) DESC;

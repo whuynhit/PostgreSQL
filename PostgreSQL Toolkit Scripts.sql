@@ -108,7 +108,7 @@ SELECT pg_size_pretty(pg_total_relation_size('table_name'));
 
 -- Check table size & estimated row count
 SELECT 
-    pg_size_pretty(pg_total_relation_size('table_name')) AS current_size,
+    pg_size_pretty(pg_total_relation_size(oid)) AS current_size,
     reltuples::bigint AS estimated_row_count
 FROM pg_class
 WHERE oid = 'table_name'::regclass;

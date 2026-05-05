@@ -15,7 +15,6 @@ FROM pg_stat_all_tables
 WHERE schemaname = 'information_schema'
 \gexec
 
-
 -- VACUUM FULL VERBOSE ANALYZE on pg_toast schema only
 SELECT 'VACUUM FULL VERBOSE ANALYZE "' || schemaname || '"."' || relname || '";'
 FROM pg_stat_all_tables

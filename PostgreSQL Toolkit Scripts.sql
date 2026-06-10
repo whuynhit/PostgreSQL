@@ -31,6 +31,20 @@ FROM pg_database
 WHERE datname NOT IN ('template0','template1')
 ORDER BY database_type, database_name;
 
+-- Storage used and table count per schema
+SELECT
+	current_database() AS database,
+	n.nspname AS schema_name,
+	pg_size_pretty(SUM(pg_total_relation_size(c.oid))) AS total_size,
+	COUNT(*) AS table_count
+FROM pg_class c
+JOIN pg_namespace n
+ON n.oid = c.relnamespace
+WHERE c.relkind = 'r'
+AND n.nspname NOT IN ('pg_catalog', 'information_schema')
+GROUP BY n.nspname
+ORDER BY SUM(pg_total_relation_size(c.oid)) DESC;
+
 -- List storage size of all schema in currnet database.
 SELECT
     n.nspname AS schema_name,
@@ -50,6 +64,19 @@ WHERE nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
 AND c.relkind IN ('r', 'i', 'mv', 't') -- r: table, i: index, mv: materialized view, t: toast table
 GROUP BY nspname
 ORDER BY SUM(pg_total_relation_size(c.oid)) DESC;
+
+-- Top 20 largest tables (total size = table + indexes + TOAST)
+SELECT 
+	current_database() AS database,
+	n.nspname || '.'|| c.relname AS table_name,
+	pg_size_pretty(pg_total_relation_size(c.oid)) AS total_size,
+	pg_size_pretty(pg_relation_size(c.oid)) AS table_size,
+	pg_size_pretty(pg_indexes_size(c.oid)) AS index_size
+FROM pg_class c
+JOIN pg_namespace n ON n.oid = c.relnamespace
+WHERE n.nspname NOT IN ('information_schema', 'pg_catalog')
+ORDER BY pg_total_relation_size(c.oid) DESC
+LIMIT 20;
 
 -- Lists storage usage for all tables within current database.
 SELECT 

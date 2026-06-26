@@ -128,17 +128,21 @@ SELECT
 FROM pg_class c
 
 -- Check specific database's storage usage.
-SELECT pg_size_pretty(pg_database_size('database_name'));
+SELECT pg_size_pretty(pg_database_size('database_name')) AS database_size;
 
 -- Check specific table storage usage
-SELECT pg_size_pretty(pg_total_relation_size('table_name'));
+SELECT pg_size_pretty(pg_total_relation_size('schema_name.table_name')) AS total_table_size;
+
+-- Check paritioned table storage usage
+SELECT pg_size_pretty(sum(pg_total_relation_size(relid))) AS total_table_size
+FROM pg_partition_tree('schema_name.table_name'::regclass);
 
 -- Check table size & estimated row count
 SELECT 
-    pg_size_pretty(pg_total_relation_size(oid)) AS current_size,
+    pg_size_pretty(pg_total_relation_size(oid)) AS total_table_size,
     reltuples::bigint AS estimated_row_count
 FROM pg_class
-WHERE oid = 'table_name'::regclass;
+WHERE oid = 'schema_name.table_name'::regclass;
 
 -- Check associated sequence of a specific table column
 SELECT pg_get_serial_sequence('schema_name.table_name','column_name')

@@ -1,5 +1,8 @@
 -- Data Masking Functions (HMAC)
 
+-- All functions created here are dependent on functions provided by pgcrypto extension
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 -- Create a separate schema to store mask functions
 CREATE SCHEMA IF NOT EXISTS mask;
 
@@ -7,7 +10,7 @@ CREATE SCHEMA IF NOT EXISTS mask;
 -- These are needed for deterministic name substitution.
 
 -- First Name table
-CREATE TABLE mask.first_names (
+CREATE TABLE IF NOT EXISTS mask.first_names (
     id   serial PRIMARY KEY,
     name text NOT NULL UNIQUE
 );
@@ -21,7 +24,7 @@ INSERT INTO mask.first_names (name) VALUES
 ('Thomas'), ('Sarah'), ('Charles'), ('Karen');
 
 -- Last Name table
-CREATE TABLE mask.last_names (
+CREATE TABLE IF NOT EXISTS mask.last_names (
     id   serial PRIMARY KEY,
     name text NOT NULL UNIQUE
 );

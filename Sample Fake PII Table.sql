@@ -1,5 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS  test;
+
 -- Sample Fake PII Table
-CREATE TABLE public.customers (
+CREATE TABLE IF NOT EXISTS test.customers (
     customer_id  serial PRIMARY KEY,
     first_name   text,
     last_name    text,
@@ -11,7 +13,7 @@ CREATE TABLE public.customers (
 );
 
 -- Sample Fake PII Data
-INSERT INTO public.customers (
+INSERT INTO test.customers (
     first_name, last_name, email, phone, ssn, birth_date, zip_code
 ) VALUES
 ('John', 'Smith', 'john.smith@gmail.com', '213-555-0198', '123-45-6789', '1985-04-12', '90001'),
@@ -30,52 +32,40 @@ INSERT INTO public.customers (
 -- See data_mask_function_sha512.sql
 SELECT
     customer_id,
-    mask.first_name(first_name) AS masked_first_name,
-    mask.last_name(last_name)   AS masked_last_name,
-    mask.email(email)           AS masked_email,
-    mask.phone(phone)           AS masked_phone,
-    mask.ssn(ssn)               AS masked_ssn,
-    mask.dob(birth_date)        AS masked_birth_date,
-    mask.zip(zip_code)          AS masked_zip
-FROM public.customers;
-
+    mask.first_name(test.first_name) AS masked_first_name,
+    mask.last_name(test.last_name)   AS masked_last_name,
+    mask.email(test.email)           AS masked_email,
+    mask.phone(test.phone)           AS masked_phone,
+    mask.ssn(test.ssn)               AS masked_ssn,
+    mask.dob(test.birth_date)        AS masked_birth_date,
+    mask.zip(test.zip_code)          AS masked_zip
+FROM test.customers;
 
 /*
 -- Full Table-Level Masking (Overwrite Pattern)
 -- If you want to permanently mask data:
-UPDATE public.customers
+UPDATE test.customers
 SET
-    first_name = mask.first_name(first_name),
-    last_name  = mask.last_name(last_name),
-    email      = mask.email(email),
-    phone      = mask.phone(phone),
-    ssn        = mask.ssn(ssn),
-    birth_date = mask.dob(birth_date),
-    zip_code   = mask.zip(zip_code);
+    test.first_name = mask.first_name(first_name),
+    test.last_name  = mask.last_name(last_name),
+    test.email      = mask.email(email),
+    test.phone      = mask.phone(phone),
+    test.ssn        = mask.ssn(ssn),
+    test.birth_date = mask.dob(birth_date),
+    test.zip_code   = mask.zip(zip_code);
 */
 
-
 -- JOIN Test Dataset (Important for Validation)
 -- This verifies deterministic behavior
 -- Create 2nd sample table
-CREATE TABLE public.orders (
+CREATE TABLE IF NOT EXISTS test.orders (
     order_id serial PRIMARY KEY,
     customer_email text,
     amount numeric
 );
 
 -- Create 2nd sample data
--- JOIN Test Dataset (Important for Validation)
--- This verifies deterministic behavior
--- Create 2nd sample table
-CREATE TABLE public.orders (
-    order_id serial PRIMARY KEY,
-    customer_email text,
-    amount numeric
-);
-
--- Create 2nd sample data
-INSERT INTO public.orders (customer_email, amount) VALUES
+INSERT INTO test.orders (customer_email, amount) VALUES
 ('john.smith@gmail.com', 120.50),
 ('mary.johnson@yahoo.com', 89.99),
 ('robert.williams@outlook.com', 42.00),
@@ -88,6 +78,6 @@ SELECT
     o.amount,
     mask.email(o.customer_email) AS masked_email,
     c.customer_id
-FROM public.orders o
-JOIN public.customers c
+FROM test.orders o
+JOIN test.customers c
     ON mask.email(o.customer_email) = mask.email(c.email);

@@ -27,34 +27,6 @@ INSERT INTO test.customers (
 ('David', 'Rodriguez', 'david.rodriguez@gmail.com', '305-555-0155', '369-47-2581', '1980-10-10', '33130'),
 ('Barbara', 'Martinez', 'barbara.martinez@yahoo.com', '213-555-0122', '741-85-9632', '1998-08-08', '90011');
 
--- Example Masking Test Query
--- See data_mask_function_hmac.sql
--- See data_mask_function_sha512.sql
-SELECT
-    customer_id,
-    mask.first_name(test.first_name) AS masked_first_name,
-    mask.last_name(test.last_name)   AS masked_last_name,
-    mask.email(test.email)           AS masked_email,
-    mask.phone(test.phone)           AS masked_phone,
-    mask.ssn(test.ssn)               AS masked_ssn,
-    mask.dob(test.birth_date)        AS masked_birth_date,
-    mask.zip(test.zip_code)          AS masked_zip
-FROM test.customers;
-
-/*
--- Full Table-Level Masking (Overwrite Pattern)
--- If you want to permanently mask data:
-UPDATE test.customers
-SET
-    test.first_name = mask.first_name(first_name),
-    test.last_name  = mask.last_name(last_name),
-    test.email      = mask.email(email),
-    test.phone      = mask.phone(phone),
-    test.ssn        = mask.ssn(ssn),
-    test.birth_date = mask.dob(birth_date),
-    test.zip_code   = mask.zip(zip_code);
-*/
-
 -- JOIN Test Dataset (Important for Validation)
 -- This verifies deterministic behavior
 -- Create 2nd sample table
@@ -71,6 +43,34 @@ INSERT INTO test.orders (customer_email, amount) VALUES
 ('robert.williams@outlook.com', 42.00),
 ('patricia.brown@gmail.com', 310.10),
 ('michael.jones@gmail.com', 18.75);
+
+/*
+-- Full Table-Level Masking (Overwrite Pattern)
+-- If you want to permanently mask data:
+UPDATE test.customers
+SET
+    test.first_name = mask.first_name(first_name),
+    test.last_name  = mask.last_name(last_name),
+    test.email      = mask.email(email),
+    test.phone      = mask.phone(phone),
+    test.ssn        = mask.ssn(ssn),
+    test.birth_date = mask.dob(birth_date),
+    test.zip_code   = mask.zip(zip_code);
+*/
+
+-- Example Masking Test Query
+-- See data_mask_function_hmac.sql
+-- See data_mask_function_sha512.sql
+SELECT
+    customer_id,
+    mask.first_name(tc.first_name) AS masked_first_name,
+    mask.last_name(tc.last_name)   AS masked_last_name,
+    mask.email(tc.email)           AS masked_email,
+    mask.phone(tc.phone)           AS masked_phone,
+    mask.ssn(tc.ssn)               AS masked_ssn,
+    mask.dob(tc.birth_date)        AS masked_birth_date,
+    mask.zip(tc.zip_code)          AS masked_zip
+FROM test.customers tc;
 
 -- Test deterministic join after masking:
 SELECT

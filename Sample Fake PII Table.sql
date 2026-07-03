@@ -62,7 +62,7 @@ SET
 -- See data_mask_function_hmac.sql
 -- See data_mask_function_sha512.sql
 SELECT
-    customer_id,
+    tc.customer_id,
     mask.first_name(tc.first_name) AS masked_first_name,
     mask.last_name(tc.last_name)   AS masked_last_name,
     mask.email(tc.email)           AS masked_email,

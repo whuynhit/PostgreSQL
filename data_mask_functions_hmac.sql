@@ -42,7 +42,7 @@ INSERT INTO mask.last_names (name) VALUES
 -- mask_hmac retrieves Secret Key from configuration parameter then hashes column with user-provided secret key
 -- Run the following example before running your masking job
 -- Example:
--- SET mask.secret = 'your-very-long-random-secret';.
+-- SET mask.secret = 'your-very-long-random-secret';
 --
 CREATE OR REPLACE FUNCTION mask.hmac(p_value text)
 RETURNS text

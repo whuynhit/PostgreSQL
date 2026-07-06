@@ -129,7 +129,7 @@ $$;
 CREATE OR REPLACE FUNCTION mask.first_name(p_name text)
 RETURNS text
 LANGUAGE sql
-STABLE
+IMMUTABLE
 STRICT
 AS $$
 SELECT name
@@ -146,7 +146,7 @@ $$;
 CREATE OR REPLACE FUNCTION mask.last_name(p_name text)
 RETURNS text
 LANGUAGE sql
-STABLE
+IMMUTABLE
 STRICT
 AS $$
 SELECT name
@@ -163,7 +163,7 @@ $$;
 CREATE OR REPLACE FUNCTION mask.full_name(p_first text, p_last text)
 RETURNS text
 LANGUAGE sql
-STABLE
+IMMUTABLE
 STRICT
 AS $$
 SELECT mask.first_name(p_first) || ' ' || mask.last_name(p_last);

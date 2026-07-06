@@ -74,7 +74,7 @@ $$;
 CREATE OR REPLACE FUNCTION mask.phone(p_phone text)
 RETURNS text
 LANGUAGE plpgsql
-IMMUTABLE
+STABLE
 STRICT
 AS $$
 DECLARE
@@ -84,12 +84,12 @@ BEGIN
     h := substr(mask.hmac(p_phone),1,15);
     n := ('x' || h)::bit(60)::bigint;
 
-    RETURN format(
-        '%03s-%03s-%04s',
-        200 + (n % 800),
-        (n / 1000) % 1000,
-        n % 10000
-    );
+    RETURN
+        lpad((200 + (n % 800))::text, 3, '0')
+        || '-'
+        || lpad(((n / 1000) % 1000)::text, 3, '0')
+        || '-'
+        || lpad((n % 10000)::text, 4, '0');
 END;
 $$;
 
@@ -97,7 +97,7 @@ $$;
 CREATE OR REPLACE FUNCTION mask.ssn(p_ssn text)
 RETURNS text
 LANGUAGE plpgsql
-IMMUTABLE
+STABLE
 STRICT
 AS $$
 DECLARE
@@ -107,12 +107,12 @@ BEGIN
     h := substr(mask.hmac(p_ssn),1,15);
     n := ('x' || h)::bit(60)::bigint;
 
-    RETURN format(
-        '%03s-%02s-%04s',
-        100 + (n % 900),
-        10 + ((n / 1000) % 90),
-        n % 10000
-    );
+    RETURN
+        lpad((100 + (n % 900))::text, 3, '0')
+        || '-'
+        || lpad((10 + ((n / 1000) % 90))::text, 2, '0')
+        || '-'
+        || lpad((n % 10000)::text, 4, '0');
 END;
 $$;
 

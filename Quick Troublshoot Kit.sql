@@ -1,3 +1,19 @@
+SELECT
+    COALESCE(r.rolname, '<ALL ROLES>') AS role_name,
+    COALESCE(d.datname, '<ALL DATABASES>') AS database_name,
+    unnest(s.setconfig) AS setting
+FROM pg_db_role_setting s
+LEFT JOIN pg_roles r
+    ON r.oid = s.setrole
+LEFT JOIN pg_database d
+    ON d.oid = s.setdatabase
+WHERE s.setdatabase = 0
+   OR s.setdatabase = (SELECT oid FROM pg_database WHERE datname = current_database())
+ORDER BY
+    role_name,
+    database_name,
+    setting;
+
 -- Database Size breakdown
 SELECT datname, pg_size_pretty(pg_database_size(datname))
 FROM pg_database

@@ -14,6 +14,26 @@ ORDER BY
     database_name,
     setting;
 
+SELECT
+    name,
+    setting,
+    unit,
+    source,
+    sourcefile,
+    sourceline,
+    pending_restart
+FROM pg_settings
+ORDER BY name;
+
+SELECT
+    name,
+    setting,
+    unit,
+    source
+FROM pg_settings
+WHERE source <> 'default'
+ORDER BY name;
+
 -- Database Size breakdown
 SELECT datname, pg_size_pretty(pg_database_size(datname))
 FROM pg_database

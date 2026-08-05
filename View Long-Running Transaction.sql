@@ -1,7 +1,7 @@
 -- View Long-Running Transaction
-SELECT pid, usename, datname, application_name, client_addr, state, query,
+SELECT pid, usename, datname, application_name, backend_type, client_addr, wait_event_type, wait_event, state, query,
        now() - xact_start AS xact_age, now() - query_start AS query_age
 FROM pg_stat_activity
-WHERE xact_start IS NOT NULL
-ORDER BY xact_age DESC
+WHERE xact_start IS NOT NULL --AND backend_type != 'parallel worker' 
+ORDER BY query_age DESC, backend_type
 LIMIT 50;

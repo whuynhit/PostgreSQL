@@ -23,13 +23,18 @@ CREATE SCHEMA IF NOT EXISTS fdw_staging;
 -- Clear any old definitions if you've run this before
 DROP FOREIGN TABLE IF EXISTS fdw_staging.source_table_link;
 
--- Import the remote table metadata directly into your staging schema
+-- Import specified table metadata directly into your fdw schema from source schema
 IMPORT FOREIGN SCHEMA source_schema
 LIMIT TO (identical_table)
 FROM SERVER source_db_link
 INTO fdw_staging;
 
--- Rename the mapped table locally so its purpose is clear
+-- Imports all tables into fdw schema from source schema
+IMPORT FOREIGN SCHEMA source_schema
+FROM SERVER source_db_link
+INTO fdw_staging;
+
+-- Optional: Rename the mapped table locally so its purpose is clear
 ALTER FOREIGN TABLE fdw_staging.identical_table 
 RENAME TO source_table_link;
 

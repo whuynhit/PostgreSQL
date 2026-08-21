@@ -1,27 +1,20 @@
-# Query Plan Node Cost Extraction
+--Query Plan Node Cost Extraction
+-- Provide the following connection details and query
+SET psql.dir = 'C:\Program Files\PostgreSQL\15\bin\psql.exe';
+SET psql.host = '[host]';
+SET psql.port = '[port]';
+SET psql.username = '[user]';
+SET psql.database = '[database]';
+SET psql.space = ' ';
+SET psql.char = '^';
+SET psql.query = '<multi-line query here>';
 
-# Part 1: Convert multi-line query to single-line query
-# Paste multi-line query in sql.query variable
-# Run the following in pgadmin 4
-# Copy/Paste result into [Part 2]
-
-SET sql.query = '<multi-line query here>';
---SHOW sql.query; -- Optional: check sql.query value
---SELECT current_setting('sql.query'); -- Optional: check sql.query value as variable
-SELECT regexp_replace(
-	current_setting('sql.query'),
-	E'\n',
-	' ',
-	'g')
+SELECT 
+	'"' || current_setting('psql.dir') || '"' ||current_setting('psql.space') || current_setting('psql.char')
+	|| chr(10) || '-h '||current_setting('psql.host') || current_setting('psql.space') || current_setting('psql.char')
+	|| chr(10) || '-p '||current_setting('psql.port') || current_setting('psql.space') || current_setting('psql.char')
+	|| chr(10) || '-U '||current_setting('psql.username') || current_setting('psql.space') || current_setting('psql.char')
+	|| chr(10) || '-d '||current_setting('psql.database') || current_setting('psql.space') || current_setting('psql.char')
+	|| chr(10) || '--pset=pager=off' || current_setting('psql.space') || current_setting('psql.char') -- Display all results instead of paginated results
+	|| chr(10) || '-c "' || regexp_replace(current_setting('psql.query'), E'\n', ' ', 'g') || '"' || ' | findstr "cost="' -- Collapse multi-line query into 1 line
 ;
-
-# Part 2: Extract Query Plan Node Cost
-# Run the following in Windows cmd
-
-"C:\Program Files\PostgreSQL\15\bin\psql.exe" ^
--h [host] ^
--p [port] ^
--U [user] ^
--d [database] ^
---pset=pager=off ^
--c "<single_line_query>" | findstr "cost="

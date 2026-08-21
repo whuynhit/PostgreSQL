@@ -4,6 +4,7 @@
 # Paste multi-line query in sql.query variable
 # Run the following in pgadmin 4
 # Copy/Paste result into [Part 2]
+
 SET sql.query = '<multi-line query here>';
 --SHOW sql.query; -- Optional: check sql.query value
 --SELECT current_setting('sql.query'); -- Optional: check sql.query value as variable
@@ -15,6 +16,8 @@ SELECT regexp_replace(
 ;
 
 # Part 2: Extract Query Plan Node Cost
+# Run the following in Windows cmd
+
 "C:\Program Files\PostgreSQL\15\bin\psql.exe" ^
 -h [host] ^
 -p [port] ^

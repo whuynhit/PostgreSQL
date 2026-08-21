@@ -1,5 +1,6 @@
 --Query Plan Node Cost Extraction
 -- Provide the following connection details and query
+-- Then run the output in Windows CMD
 SET psql.dir = 'C:\Program Files\PostgreSQL\15\bin\psql.exe';
 SET psql.host = '[host]';
 SET psql.port = '[port]';

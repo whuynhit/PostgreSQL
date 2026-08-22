@@ -19,10 +19,15 @@ WHERE nspowner = 16400
 ORDER BY nspname;
 
 -- Generate script to IMPORT FOREIGN SCHEMA from source to destination fdw schema
+SET fdw.foreign_server = '<foreign_server_name>';
+SET fdw.database = '<database_name>';
+
 SELECT 
-	'IMPORT FOREIGN SCHEMA ' || nspname || chr(10) ||
-	'FROM SERVER ' || '<foreign_server_name>' || chr(10) ||
-	'INTO ' || nspname || '_fdw_<database_name>;'
+	'IMPORT FOREIGN SCHEMA ' || nspname 
+	|| chr(10) || 'FROM SERVER ' || current_setting('fdw.foreign_server') 
+	|| chr(10) || 'INTO ' || nspname || '_fdw_' || current_setting('fdw.database') || ';'
 FROM pg_namespace
-WHERE nspowner = 16400
+INNER JOIN pg_roles
+ON pg_namespace.nspowner = pg_roles.oid
+WHERE pg_roles.rolname = 'postgres'
 ORDER BY nspname;

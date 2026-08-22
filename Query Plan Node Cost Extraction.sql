@@ -8,7 +8,7 @@ SET psql.username = '[user]';
 SET psql.database = '[database]';
 SET psql.space = ' ';
 SET psql.char = '^';
-SET psql.query = '<multi-line query here>';
+SET psql.query = $SQL$<multi-line query here>$SQL$;
 
 SELECT 
 	'"' || current_setting('psql.dir') || '"' ||current_setting('psql.space') || current_setting('psql.char')

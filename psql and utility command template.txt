@@ -1,25 +1,39 @@
-# Connect to DB using psql (Windows cmd)
-"D:\Program Files\PostgreSQL\17\bin\psql.exe" -h [hostname] -p 5432 -U [username] -d [database_name]
+# Utilities are run in [Windows cmd]
+
+# Connect to DB using psql
+"D:\Program Files\PostgreSQL\17\bin\psql.exe" -h [hostname] -p [port] -U [username] -d [database_name]
+
+# Connect to DB using psql and execute query command
+# --pset=pager=off, turns off paginated results to show all results
+"D:\Program Files\PostgreSQL\17\bin\psql.exe" -h [hostname] -p [port] -U [username] -d [database_name] --pset=pager=off -c "[query]"
+
+# Connect to DB using psql and execute query and output lines of query result that contain specified string 
+# --pset=pager=off, turns off paginated results to show all results
+# pipe findstr "[string]" will filter query results based on specified string
+"D:\Program Files\PostgreSQL\17\bin\psql.exe" -h [hostname] -p [port] -U [username] -d [database_name] --pset=pager=off -c "[query]" | findstr "cost="
+
+# ANALYZE tables in bulk using vacuumdb utility
+"D:\Program Files\PostgreSQL\17\bin\vacuumdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] --analyze-only -j 8
 
 # vacuumlo (vacuum utility for orphaned large objects)
 # -n means dry run
 "D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -n -h [host] -p [port] -U [user] [database_name]
 
-# actual run
+# vacuumlo actual run, -n flag removed
 "D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] [database_name]
 
 # BACKUP using pg_dump
 
 # pg_dump for backing up partitioned table (table schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p 5432 -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --schema-only -j 4 --verbose -F d -f  "path\backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --schema-only -j 4 --verbose -F d -f  "path\backup_schema"
 
 # pg_dump for backing up partitioned table (data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p 5432 -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --data-only -j 4 --verbose -F d -f  "path\backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --data-only -j 4 --verbose -F d -f  "path\backup_data"
 
 # RESTORE using pg_restore
 
 # pg_restore for restoring partitioned table (table schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p 5432 -U [username] -d [database_name] -j 4 --verbose "path\backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\backup_schema"
 
 # pg_dump for restoring partitioned table (table data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p 5432 -U [username] -d [database_name] -j 4 --verbose "path\backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\backup_data"

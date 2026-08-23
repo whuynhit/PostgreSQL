@@ -1,7 +1,7 @@
 -- Generate cmdlet script to extract Query Plan Node Cost
 -- Provide the following connection details and query
 -- Then run the output in Windows CMD
-SET util.dir = 'C:\Program Files\PostgreSQL\15\bin\psql.exe';
+SET util.dir = 'D:\Program Files\PostgreSQL\17\bin\psql.exe';
 SET util.host = '[host]';
 SET util.port = '[port]';
 SET util.username = '[user]';

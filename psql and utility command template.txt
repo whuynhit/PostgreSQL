@@ -42,9 +42,11 @@
 --pset=pager=off ^
 -c "[query]" | findstr "cost="
 
+# REINDEX indexes in bulk using reindexdb utility
+"D:\Program Files\PostgreSQL\17\bin\reindexdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] --concurrently  -j 8 -v
 
 # ANALYZE tables in bulk using vacuumdb utility
-"D:\Program Files\PostgreSQL\17\bin\vacuumdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] --analyze-only -j 8
+"D:\Program Files\PostgreSQL\17\bin\vacuumdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] --analyze-only -j 8 -v
 
 
 # vacuumlo (vacuum utility for orphaned large objects)

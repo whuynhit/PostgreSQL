@@ -17,10 +17,13 @@ SELECT
 	ci.current_locker_pid,
 	ci.blocks_total,
 	ci.blocks_done,
+	COALESCE(ROUND(ci.blocks_done::numeric/ NULLIF(ci.blocks_total::numeric, 0), 2)*100, 0::bigint) AS blocks_done_pct,
 	ci.tuples_total,
 	ci.tuples_done,
+	COALESCE(ROUND(ci.tuples_done::numeric/ NULLIF(ci.tuples_total::numeric, 0), 2)*100, 0::bigint) AS tuples_done_pct,
 	ci.partitions_total,
-	ci.partitions_done
+	ci.partitions_done,
+	COALESCE(ROUND(ci.partitions_done::numeric/ NULLIF(ci.partitions_total::numeric, 0), 2)*100, 0::bigint) AS partitions_pct
 FROM pg_stat_progress_create_index ci
 INNER JOIN pg_statio_all_indexes ai
 ON ci.index_relid = ai.indexrelid

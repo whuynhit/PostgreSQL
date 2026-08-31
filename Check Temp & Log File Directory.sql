@@ -1,3 +1,11 @@
+-- Check temp file generation by database
+SELECT
+	datname,
+	temp_files,
+	temp_bytes,
+	pg_size_pretty(temp_bytes) AS temp_size
+FROM pg_stat_database;
+
 -- Check temp file count, file size and other relevant query information by query PID
 SELECT 
     t.pid,  

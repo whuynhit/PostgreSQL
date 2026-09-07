@@ -136,3 +136,18 @@ INNER JOIN pg_stat_ssl s
 ON a.pid = s.pid
 WHERE usename = 'username'
 ORDER BY s.pid;
+
+-- Generate CREATE VIEW from existing view definition
+SELECT
+table_catalog,
+table_schema,
+table_name,
+format($$CREATE OR REPLACE VIEW %1$I.%2$I
+AS
+%3$s$$,
+table_schema,
+table_name,
+view_definition)
+FROM information_schema.views
+WHERE table_schema NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
+AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info');

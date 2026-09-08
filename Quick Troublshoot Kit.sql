@@ -137,7 +137,20 @@ ON a.pid = s.pid
 WHERE usename = 'username'
 ORDER BY s.pid;
 
--- Generate CREATE VIEW from existing view definition
+-- Generate DROP VIEW IF EXISTS from existing views
+SELECT
+table_catalog,
+table_schema,
+table_name,
+format($$DROP VIEW IF EXISTS %1$I.%2$I;$$,
+table_schema,
+table_name
+)
+FROM information_schema.views
+WHERE table_schema NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
+--AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info');
+
+-- Generate CREATE OR REPLACE VIEW from existing views
 SELECT
 table_catalog,
 table_schema,
@@ -150,4 +163,4 @@ table_name,
 view_definition)
 FROM information_schema.views
 WHERE table_schema NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
-AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info');
+--AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info');

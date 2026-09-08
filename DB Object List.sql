@@ -20,7 +20,7 @@ SELECT
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
 WHERE n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
--- AND c.relispartition = false -- Uncomment to filter out Child Partitions
+-- AND NOT c.relispartition -- Uncomment to filter out Child Partitions
 ORDER BY schema_name, object_name;
 -- ORDER BY pg_total_relation_size(c.oid) DESC; -- Sort by largest object size
 
@@ -45,7 +45,7 @@ SELECT
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
 WHERE n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
--- AND c.relispartition = false -- Uncomment to filter out Child Partitions
+-- AND NOT c.relispartition -- Uncomment to filter out Child Partitions
 GROUP BY schema_name, c.relkind
 ORDER BY schema_name, object_type;
 
@@ -55,7 +55,7 @@ FROM pg_stat_user_tables s
 JOIN pg_class c 
 ON s.relid = c.oid
 WHERE c.relkind IN ('p', 'r') -- Comment out to show all tables + materialized views 
-AND c.relispartition = false -- Filters out Child Partitions
+AND NOT c.relispartition -- Filters out Child Partitions
 ORDER BY schemaname, relname;
 
 -- List tables and table owner

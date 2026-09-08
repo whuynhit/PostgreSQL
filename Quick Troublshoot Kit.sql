@@ -148,7 +148,8 @@ table_name
 )
 FROM information_schema.views
 WHERE table_schema NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
---AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info');
+--AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info')
+ORDER BY schema_name, table_name;
 
 -- Generate CREATE OR REPLACE VIEW from existing views
 SELECT
@@ -163,4 +164,5 @@ table_name,
 view_definition)
 FROM information_schema.views
 WHERE table_schema NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
---AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info');
+--AND table_name NOT IN ('pg_stat_statements', 'pg_stat_statements_info')
+ORDER BY schema_name, table_name;

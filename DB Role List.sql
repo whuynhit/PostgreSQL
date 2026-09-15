@@ -10,7 +10,7 @@ ELSE
 format($$COMMENT ON ROLE %1$I IS 'insert comment here';$$,
 r.rolname
 ) 
-END ASadd_comment,
+END AS add_comment,
 d.description
 FROM pg_roles r
 LEFT JOIN pg_shdescription d 

@@ -40,7 +40,8 @@ SELECT
   	WHEN c.relkind = 'I' THEN 'partitioned index'
   	ELSE 'other'
     END AS object_type,
-    COUNT (1)
+    COUNT (1),
+    now() AT TIME ZONE 'America/Los_Angeles'
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
 WHERE n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
@@ -65,7 +66,8 @@ SELECT
   	WHEN c.relkind = 'I' THEN 'partitioned index'
   	ELSE 'other'
     END AS object_type,
-    COUNT (1)
+    COUNT (1),
+    now() AT TIME ZONE 'America/Los_Angeles'
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
 WHERE n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')

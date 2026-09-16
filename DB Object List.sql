@@ -41,6 +41,7 @@ SELECT
   	ELSE 'other'
     END AS object_type,
     COUNT (1),
+    SUM(COUNT(1)) OVER() AS total,
     now() AT TIME ZONE 'America/Los_Angeles'
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
@@ -67,6 +68,7 @@ SELECT
   	ELSE 'other'
     END AS object_type,
     COUNT (1),
+    SUM(COUNT(1)) OVER() AS total,
     now() AT TIME ZONE 'America/Los_Angeles'
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace

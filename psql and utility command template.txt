@@ -97,3 +97,16 @@
 
 # pg_dump for restoring partitioned table (table data-only) [Directory Dump]
 "D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\parent_table_backup_data"
+
+
+
+# BACKUP using pg_dump with verbose logging
+
+# pg_dump for backing up database (schema-only) [Directory Dump]
+("D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f  "path\database_backup_schema") 2>&1 | (for /f "delims=" %i in ('more') do @echo [%date% %time%] %i) > "path\database_backup_schema_dump.log"
+
+
+# RESTORE using pg_restore with verbose logging
+
+# pg_restore for restoring database (schema-only) [Directory Dump]
+("D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\database_backup_schema") 2>&1 | (for /f "delims=" %i in ('more') do @echo [%date% %time%] %i) > "path\database_backup_schema_restore.log"

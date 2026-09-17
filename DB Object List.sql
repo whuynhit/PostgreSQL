@@ -68,6 +68,7 @@ SELECT
   	ELSE 'other'
     END AS object_type,
     COUNT (1),
+--	SUM(COUNT(1)) OVER(PARTITION BY c.relkind) AS obj_typ_ttl,
     SUM(COUNT(1)) OVER() AS total,
     now() AT TIME ZONE 'America/Los_Angeles'
 FROM pg_class c

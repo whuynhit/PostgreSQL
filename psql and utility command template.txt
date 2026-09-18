@@ -122,3 +122,21 @@
 
 # pg_restore for restoring database (schema-only) [Directory Dump]
 "D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\database_backup_schema" 2>&1 | (for /f "delims=" %i in ('more') do @echo [%date% %time%] %i) > "path\database_backup_schema_restore.log"
+
+
+# powershell (in windows cmd)
+
+# BACKUP
+powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_dump.exe' -h '[hostname]' -p '[port]' -U '[username]' -d '[database_name]' --schema-only -j 4 --verbose -F d -f 'path\database_backup_schema' }" 2> "path\database_backup_schema_dump.log"
+
+# RESTORE
+powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_restore.exe' -h '[hostname]' -p '[port]' -U '[username]' -d '[database_name]' -j 4 --verbose 'path\database_backup_schema' }" 2> "path\database_backup_schema_restore.log"
+
+
+# powershell (direct)
+
+# BACKUP 
+Measure-Command { & "D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f "path\database_backup_schema" 2> "path\database_backup_schema_dump.log" }
+
+# RESTORE
+Measure-Command { & "D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\database_backup_schema" 2> "path\database_backup_schema_restore.log" }

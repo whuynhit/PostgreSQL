@@ -99,6 +99,8 @@
 "D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\parent_table_backup_data"
 
 
+###########################################################################################################################################################################################################################################################################################
+
 # BACKUP using pg_dump with verbose logging to file
 
 # pg_dump for backing up database (schema-only) [Directory Dump]

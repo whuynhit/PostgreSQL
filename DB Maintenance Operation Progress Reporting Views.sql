@@ -45,6 +45,7 @@ SELECT
 	v.heap_blks_total,
 	v.heap_blks_scanned,
 	v.heap_blks_vacuumed,
+	COALESCE(ROUND(v.heap_blks_vacuumed::numeric/ NULLIF(v.heap_blks_total::numeric, 0), 2)*100, 0::bigint) AS blocks_vacuumed_pct,
 	v.index_vacuum_count,
 	v.max_dead_tuples,
 	v.num_dead_tuples
@@ -68,8 +69,10 @@ SELECT
 	a.state,
 	c.heap_tuples_scanned,
 	c.heap_tuples_written,
+	COALESCE(ROUND(c.heap_tuples_written::numeric/ NULLIF(c.heap_tuples_scanned::numeric, 0), 2)*100, 0::bigint) AS heap_tuples_written_pct,
 	c.heap_blks_total,
 	c.heap_blks_scanned,
+	COALESCE(ROUND(c.heap_blks_scanned::numeric/ NULLIF(c.heap_blks_total::numeric, 0), 2)*100, 0::bigint) AS heap_blks_scanned_pct,
 	c.index_rebuild_count
 FROM pg_stat_progress_cluster c
 INNER JOIN pg_stat_all_tables t

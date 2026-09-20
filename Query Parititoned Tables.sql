@@ -1,3 +1,4 @@
+-- Query Parititoned Tables by Parent Tables
 WITH RECURSIVE table_hierarchy AS (
     -- Anchor member: Find the parent table by name
     SELECT oid AS table_oid

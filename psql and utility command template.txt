@@ -133,7 +133,7 @@ powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_
 powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_restore.exe' -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose 'path\database_backup_schema' }" 2> "path\database_backup_schema_restore.log"
 
 
-# powershell (direct)
+# powershell (direct, generates error exceptions in logs)
 
 # BACKUP 
 Measure-Command { & "D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f "path\database_backup_schema" 2> "path\database_backup_schema_dump.log" }

@@ -51,10 +51,13 @@
 
 # vacuumlo (vacuum utility for orphaned large objects)
 # -n means dry run
-"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -n -h [host] -p [port] -U [user] [database_name]
+"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] [database_name] -n
 
 # vacuumlo actual run, -n flag removed
 "D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] [database_name]
+
+# -l means limit, the following means vacuum nor more than 10000 large objects (-l default is 1000)
+"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] [database_name] -l 10000
 
 
 # BACKUP using pg_dump

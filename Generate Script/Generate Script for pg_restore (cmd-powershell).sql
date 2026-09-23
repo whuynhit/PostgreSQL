@@ -6,8 +6,8 @@ SET util.host = '[host]'; -- %2$s
 SET util.port = '[port]'; -- %3$s
 SET util.username = '[user]'; -- %4$s
 SET util.database = '[database]'; -- %5$s
-SET util.backup_dir = 'K:\PostgreSQL\backup\pagila_db_backup_schema'; -- %6$s
-SET util.log_dir = 'K:\PostgreSQL\logs\pg_dump\pagila_db_backup_schema_dump.log'; -- %7$s
+SET util.backup_dir = 'path\backup\db_backup_schema'; -- %6$s
+SET util.log_dir = 'path\logs\pg_restore\db_backup_schema_restore.log'; -- %7$s
 
 SELECT
 format($$powershell -Command "Measure-Command { & '%1$s' -h %2$s -p %3$s -U %4$s -d %5$s -j 4 --verbose '%6$s' }" 2> "%7$s"$$,

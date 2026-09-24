@@ -51,10 +51,10 @@
 
 # vacuumlo (vacuum utility for orphaned large objects)
 # -n means dry run
-"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] [database_name] -n
+"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -n -h [host] -p [port] -U [user] -v [database_name]
 
 # vacuumlo actual run, -n flag removed
-"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] [database_name]
+"D:\Program Files\PostgreSQL\17\bin\vacuumlo.exe" -h [host] -p [port] -U [user] -v [database_name]
 
 
 

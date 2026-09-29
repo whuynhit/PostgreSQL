@@ -10,7 +10,6 @@ SET LOCAL util.char = '^'; -- %6$s
 SET LOCAL util.backup_dir = 'path\database_backup_schema'; -- %7$s
 SET LOCAL util.log_dir = 'path\logs\pg_restore\db_backup_schema_restore.log'; -- %8$s
 
-
 SELECT
 format($$"%1$s" %6$s
 -h %2$s %6$s

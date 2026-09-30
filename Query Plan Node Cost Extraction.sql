@@ -2,10 +2,10 @@
 -- Provide the following connection details and query
 -- Then run the output in Windows CMD
 SET util.dir = 'D:\Program Files\PostgreSQL\17\bin\psql.exe'; -- %1$s
-SET util.host = '[host]'; -- %2$s
+SET util.host = '[hostname]'; -- %2$s
 SET util.port = '[port]'; -- %3$s
-SET util.username = '[user]'; -- %4$s
-SET util.database = '[database]'; -- %5$s
+SET util.username = '[username]'; -- %4$s
+SET util.database = '[database_name]'; -- %5$s
 SET util.char = '^'; -- %6$s
 SET util.query = $SQL$<multi-line query here>$SQL$; -- %7$s
 
@@ -32,10 +32,10 @@ regexp_replace(current_setting('util.query'), E'\n', ' ', 'g')
 -- OLD Version
 =============*/
 SET util.dir = 'D:\Program Files\PostgreSQL\17\bin\psql.exe';
-SET util.host = '[host]';
+SET util.host = '[hostname]';
 SET util.port = '[port]';
-SET util.username = '[user]';
-SET util.database = '[database]';
+SET util.username = '[username]';
+SET util.database = '[database_name]';
 SET util.char = '^';
 SET util.query = $SQL$<multi-line query here>$SQL$;
 

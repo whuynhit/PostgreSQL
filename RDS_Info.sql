@@ -1,4 +1,4 @@
-SET my.app_hostname = 'rds-identifier.cluster-abc123.us-west-2.rds.amazonaws.com';
+SET LOCAL my.app_hostname = 'rds-identifier.cluster-abc123.us-west-2.rds.amazonaws.com';
 
 SELECT
 	split_part(current_setting('my.app_hostname'), '.', 1) AS rds_name,

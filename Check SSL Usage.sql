@@ -1,5 +1,6 @@
 -- Check if specific user is connected using SSL/TLS.
-SELECT 
+SELECT
+  pg_backend_pid(),
   a.pid,
   a.usename,
   a.datname,
@@ -14,5 +15,5 @@ SELECT
 FROM pg_stat_activity a
 INNER JOIN pg_stat_ssl s
 ON a.pid = s.pid
-WHERE usename = 'username'
+WHERE usename != 'rdsadmin'
 ORDER BY s.pid;

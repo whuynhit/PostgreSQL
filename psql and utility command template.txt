@@ -61,22 +61,22 @@
 # BACKUP using pg_dump
 
 # pg_dump for backing up database (schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f  "path\database_backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f "path\database_backup_schema"
 
 # pg_dump for backing up database (data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --data-only -j 4 --verbose -F d -f  "path\database_backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --data-only -j 4 --verbose -F d -f "path\database_backup_data"
 
 # pg_dump for backing up schema (schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] --schema-only -j 4 --verbose -F d -f  "path\schema_backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] --schema-only -j 4 --verbose -F d -f "path\schema_backup_schema"
 
 # pg_dump for backing up schema (data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] --data-only -j 4 --verbose -F d -f  "path\schema_backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] --data-only -j 4 --verbose -F d -f "path\schema_backup_data"
 
 # pg_dump for backing up partitioned table (table schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --schema-only -j 4 --verbose -F d -f  "path\parent_table_backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --schema-only -j 4 --verbose -F d -f "path\parent_table_backup_schema"
 
 # pg_dump for backing up partitioned table (table data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --data-only -j 4 --verbose -F d -f  "path\parent_table_backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --data-only -j 4 --verbose -F d -f "path\parent_table_backup_data"
 
 
 # RESTORE using pg_restore

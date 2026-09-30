@@ -1,7 +1,7 @@
 -- Generate cmdlet script to pg_restore a database
 -- Provide the following connection details, utility directory, backup file directory, & log file directory 
 -- Then run the output in Windows CMD
-SET LOCAL util.dir = 'D:\Program Files\PostgreSQL\17\bin\psql.exe'; -- %1$s
+SET LOCAL util.dir = 'D:\Program Files\PostgreSQL\17\bin\pg_restore.exe'; -- %1$s
 SET LOCAL util.host = '[hostname]'; -- %2$s
 SET LOCAL util.port = '[port]'; -- %3$s
 SET LOCAL util.username = '[username]'; -- %4$s

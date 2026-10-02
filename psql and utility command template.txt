@@ -4,8 +4,10 @@
 "D:\Program Files\PostgreSQL\17\bin\psql.exe" -h [hostname] -p [port] -U [username] -d [database_name]
 
 
-# Connect to DB (AWS RDS) using psql
+# Connect to DB (AWS RDS) using psql and using TLS/SSL
 # Must store .pem file in user profile directory - C:\Users\<username>
+curl -o global-bundle.pem https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+
 "D:\Program Files\PostgreSQL\17\bin\psql.exe" "host=[hostname] port=[port] user=[username] dbname=[database_name] sslmode=verify-full sslrootcert=./global-bundle.pem"
 
 # powershell version

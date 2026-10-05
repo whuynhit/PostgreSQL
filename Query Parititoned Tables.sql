@@ -18,3 +18,25 @@ SELECT stat.*
 FROM pg_stat_user_tables stat
 WHERE stat.relid IN (SELECT table_oid FROM table_hierarchy)
 ORDER BY relname;
+
+
+-- User Table stats
+SELECT
+	stat.schemaname,
+	stat.relname,
+	pg_size_pretty(pg_relation_size(stat.relid)) AS table_size,
+	stat.n_live_tup,
+	stat.n_dead_tup
+FROM pg_stat_user_tables stat
+WHERE stat.relid IN (SELECT table_oid FROM table_hierarchy)
+ORDER BY relname;
+
+---- User Index stats
+SELECT
+	stat.schemaname,
+	stat.relname,
+	stat.indexrelname,
+	pg_size_pretty(pg_relation_size(stat.indexrelid)) AS index_size
+FROM pg_stat_user_indexes stat
+WHERE stat.relid IN (SELECT table_oid FROM table_hierarchy)
+ORDER BY relname;

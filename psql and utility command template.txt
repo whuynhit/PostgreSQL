@@ -1,6 +1,12 @@
 # Utilities are run in [Windows cmd]
 
 # Connect to DB using psql
+set PGSSLMODE=verify-full
+set PGSSLROOTCERT=./global-bundle.pem
+
+echo %PGSSLMODE%
+echo %PGSSLROOTCERT%
+
 "D:\Program Files\PostgreSQL\17\bin\psql.exe" -h [hostname] -p [port] -U [username] -d [database_name]
 
 
@@ -11,6 +17,14 @@ curl -o global-bundle.pem https://truststore.pki.rds.amazonaws.com/global/global
 "D:\Program Files\PostgreSQL\17\bin\psql.exe" "host=[hostname] port=[port] user=[username] dbname=[database_name] sslmode=verify-full sslrootcert=./global-bundle.pem"
 
 # powershell version
+$env:PGSSLMODE = "verify-full"
+$env:PGSSLROOTCERT = "./global-bundle.pem"
+
+$env:PGSSLMODE
+$env:PGSSLROOTCERT
+
+& "D:\Program Files\PostgreSQL\17\bin\psql.exe" "host=[hostname] port=[port] user=[username] dbname=[database_name]"
+
 & "D:\Program Files\PostgreSQL\17\bin\psql.exe" "host=[hostname] port=[port] user=[username] dbname=[database_name] sslmode=verify-full sslrootcert=./global-bundle.pem"
 
 

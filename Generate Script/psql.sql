@@ -21,4 +21,4 @@ current_setting('util.port'),
 current_setting('util.username'),
 current_setting('util.database'),
 current_setting('util.char')
-) AS "Login using psql - Run Output in Windows CMD";
+) AS "Login using psql - Run in WIN CMD";

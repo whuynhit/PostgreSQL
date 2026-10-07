@@ -26,7 +26,7 @@ current_setting('util.username'),
 current_setting('util.database'),
 current_setting('util.jobs'),
 current_setting('util.char')
-) AS "REINDEX CONCURRENTLY using reindexdb (SLOWER) - Run Output in Windows CMD",
+) AS "REINDEX CONCURRENTLY using reindexdb (SLOWER) - Run in WIN CMD",
 format($$"%1$s" %7$s
 -h %2$s %7$s
 -p %3$s %7$s
@@ -42,4 +42,4 @@ current_setting('util.username'),
 current_setting('util.database'),
 current_setting('util.jobs'),
 current_setting('util.char')
-) AS "REINDEX using reindexdb (FASTER) - Run Output in Windows CMD";
+) AS "REINDEX using reindexdb (FASTER) - Run in WIN CMD";

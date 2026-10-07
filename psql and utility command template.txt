@@ -68,10 +68,10 @@ $env:PGSSLROOTCERT
 -c "[query]" | findstr "cost="
 
 # REINDEX indexes in bulk using reindexdb utility
-"D:\Program Files\PostgreSQL\17\bin\reindexdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] --concurrently -j 8 -v
+"D:\Program Files\PostgreSQL\17\bin\reindexdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 8 --concurrently -v
 
 # ANALYZE tables in bulk using vacuumdb utility
-"D:\Program Files\PostgreSQL\17\bin\vacuumdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] --analyze-only -j 8 -v
+"D:\Program Files\PostgreSQL\17\bin\vacuumdb.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 8 --analyze-only -v
 
 
 # vacuumlo (vacuum utility for orphaned large objects)

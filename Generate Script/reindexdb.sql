@@ -6,12 +6,12 @@ SET LOCAL util.host = '[hostname]'; -- %2$s
 SET LOCAL util.port = '[port]'; -- %3$s
 SET LOCAL util.username = '[username]'; -- %4$s
 SET LOCAL util.database = '[database_name]'; -- %5$s
-SET LOCAL util.job = '8'; -- %6$s
+SET LOCAL util.jobs = '8'; -- %6$s
 SET LOCAL util.char = '^'; -- %7$s
 SET LOCAL util.concurrent = 'N'; -- Y/N, Y to REINDEX CONCURRENTLY
 
 SELECT
-CASE --
+CASE
 WHEN current_setting('util.concurrent') = 'Y'
 THEN format($$"%1$s" %7$s
 -h %2$s %7$s
@@ -27,7 +27,7 @@ current_setting('util.host'),
 current_setting('util.port'),
 current_setting('util.username'),
 current_setting('util.database'),
-current_setting('util.job'),
+current_setting('util.jobs'),
 current_setting('util.char')
 )
 ELSE
@@ -44,7 +44,7 @@ current_setting('util.host'),
 current_setting('util.port'),
 current_setting('util.username'),
 current_setting('util.database'),
-current_setting('util.job'),
+current_setting('util.jobs'),
 current_setting('util.char')
 )
 END AS "REINDEX using reindexdb - Run Output in Windows CMD";

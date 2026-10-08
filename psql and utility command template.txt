@@ -86,22 +86,22 @@ $env:PGSSLROOTCERT
 # BACKUP using pg_dump
 
 # pg_dump for backing up database (schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f "path\database_backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --schema-only --verbose -F d -f "path\database_backup_schema"
 
 # pg_dump for backing up database (data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --data-only -j 4 --verbose -F d -f "path\database_backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --data-only --verbose -F d -f "path\database_backup_data"
 
 # pg_dump for backing up schema (schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] --schema-only -j 4 --verbose -F d -f "path\schema_backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] -j 4 --schema-only --verbose -F d -f "path\schema_backup_schema"
 
 # pg_dump for backing up schema (data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] --data-only -j 4 --verbose -F d -f "path\schema_backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -n [schema_name] -j 4 --data-only --verbose -F d -f "path\schema_backup_data"
 
 # pg_dump for backing up partitioned table (table schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --schema-only -j 4 --verbose -F d -f "path\parent_table_backup_schema"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] -j 4 --schema-only --verbose -F d -f "path\parent_table_backup_schema"
 
 # pg_dump for backing up partitioned table (table data-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] --data-only -j 4 --verbose -F d -f "path\parent_table_backup_data"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --table-and-children [schema.parent_table_name] -j 4 --data-only --verbose -F d -f "path\parent_table_backup_data"
 
 
 # RESTORE using pg_restore
@@ -130,7 +130,7 @@ $env:PGSSLROOTCERT
 # BACKUP using pg_dump with verbose logging to file
 
 # pg_dump for backing up database (schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f  "path\database_backup_schema" 2> "path\database_backup_schema_dump.log"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --schema-only --verbose -F d -f  "path\database_backup_schema" 2> "path\database_backup_schema_dump.log"
 
 # RESTORE using pg_restore with verbose logging to file
 
@@ -141,7 +141,7 @@ $env:PGSSLROOTCERT
 # BACKUP using pg_dump with timestamped verbose logging to file
 
 # pg_dump for backing up database (schema-only) [Directory Dump]
-"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f  "path\database_backup_schema" 2>&1 | (for /f "delims=" %i in ('more') do @echo [%date% %time%] %i) > "path\database_backup_schema_dump.log"
+"D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --schema-only --verbose -F d -f  "path\database_backup_schema" 2>&1 | (for /f "delims=" %i in ('more') do @echo [%date% %time%] %i) > "path\database_backup_schema_dump.log"
 
 
 # RESTORE using pg_restore with timestamped verbose logging to file
@@ -153,7 +153,7 @@ $env:PGSSLROOTCERT
 # powershell (in windows cmd)
 
 # BACKUP
-powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_dump.exe' -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f 'path\database_backup_schema' }" 2> "path\database_backup_schema_dump.log"
+powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_dump.exe' -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --schema-only --verbose -F d -f 'path\database_backup_schema' }" 2> "path\database_backup_schema_dump.log"
 
 # RESTORE
 powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_restore.exe' -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose 'path\database_backup_schema' }" 2> "path\database_backup_schema_restore.log"
@@ -162,7 +162,7 @@ powershell -Command "Measure-Command { & 'D:\Program Files\PostgreSQL\17\bin\pg_
 # powershell (direct, generates error exceptions in logs)
 
 # BACKUP 
-Measure-Command { & "D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] --schema-only -j 4 --verbose -F d -f "path\database_backup_schema" 2> "path\database_backup_schema_dump.log" }
+Measure-Command { & "D:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --schema-only --verbose -F d -f "path\database_backup_schema" 2> "path\database_backup_schema_dump.log" }
 
 # RESTORE
 Measure-Command { & "D:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h [hostname] -p [port] -U [username] -d [database_name] -j 4 --verbose "path\database_backup_schema" 2> "path\database_backup_schema_restore.log" }

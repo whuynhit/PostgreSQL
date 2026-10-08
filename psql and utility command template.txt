@@ -1,3 +1,10 @@
+# Bash shell version (Linux)
+
+export PGSSLMODE=verify-full
+export PGSSLROOTCERT=./global-bundle.pem
+
+psql -h [hostname] -p [port] -U [username] -d [database_name]
+
 # Utilities are run in [Windows cmd]
 
 # Connect to DB using psql

@@ -20,4 +20,4 @@ current_setting('util.database'),
 current_setting('util.jobs'),
 current_setting('util.backup_dir'),
 current_setting('util.log_dir')
-) AS "BACKUP (Schema-only) - Run in WIN CMD";
+) AS "BACKUP (Full) - Run in WIN CMD";

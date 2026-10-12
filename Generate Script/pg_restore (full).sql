@@ -1,4 +1,4 @@
--- Generate cmdlet script to pg_restore a database
+-- Generate cmdlet script to pg_restore (Full) a database
 -- Provide the following connection details, utility directory, backup file directory, & log file directory 
 -- Then run the output in Windows CMD
 SET LOCAL util.dir = 'D:\Program Files\PostgreSQL\17\bin\pg_restore.exe'; -- %1$s
@@ -8,8 +8,8 @@ SET LOCAL util.username = '[username]'; -- %4$s
 SET LOCAL util.database = '[database_name]'; -- %5$s
 SET LOCAL util.jobs = '4'; -- %6$s
 SET LOCAL util.char = '^'; -- %7$s
-SET LOCAL util.backup_dir = 'path\database_backup_schema'; -- %8$s
-SET LOCAL util.log_dir = 'path\logs\pg_restore\database_backup_schema_restore.log'; -- %9$s
+SET LOCAL util.backup_dir = 'path\database_backup_full'; -- %8$s
+SET LOCAL util.log_dir = 'path\logs\pg_restore\database_backup_full_restore.log'; -- %9$s
 
 SELECT
 format($$"%1$s" %7$s
@@ -29,4 +29,4 @@ current_setting('util.database'),
 current_setting('util.jobs'),
 current_setting('util.char'),
 current_setting('util.backup_dir')
-) AS "RESTORE - Run in WIN CMD";
+) AS "RESTORE (Full) - Run in WIN CMD";

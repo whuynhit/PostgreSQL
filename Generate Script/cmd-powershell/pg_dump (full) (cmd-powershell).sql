@@ -7,8 +7,8 @@ SET LOCAL util.port = '[port]'; -- %3$s
 SET LOCAL util.username = '[username]'; -- %4$s
 SET LOCAL util.database = '[database_name]'; -- %5$s
 SET LOCAL util.jobs = '4'; -- %6$s
-SET LOCAL util.backup_dir = 'path\database_backup_schema'; -- %7$s
-SET LOCAL util.log_dir = 'path\logs\pg_dump\database_backup_schema_dump.log'; -- %8$s
+SET LOCAL util.backup_dir = 'path\database_backup_full'; -- %7$s
+SET LOCAL util.log_dir = 'path\logs\pg_dump\database_backup_full_dump.log'; -- %8$s
 
 SELECT
 format($$powershell -Command "Measure-Command { & '%1$s' -h %2$s -p %3$s -U %4$s -d %5$s -j %6$s --verbose -F d -f '%7$s' }" 2> "%8$s"$$,

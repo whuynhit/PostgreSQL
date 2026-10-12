@@ -8,8 +8,8 @@ SET LOCAL util.username = '[username]'; -- %4$s
 SET LOCAL util.database = '[database_name]'; -- %5$s
 SET LOCAL util.jobs = '4'; -- %6$s
 SET LOCAL util.char = '^'; -- %7$s
-SET LOCAL util.backup_dir = 'path\database_backup_schema'; -- %8$s
-SET LOCAL util.log_dir = 'path\logs\pg_dump\database_backup_schema_dump.log'; -- %9$s
+SET LOCAL util.backup_dir = 'path\database_backup_data'; -- %8$s
+SET LOCAL util.log_dir = 'path\logs\pg_dump\database_backup_data_dump.log'; -- %9$s
 
 SELECT
 format($$"%1$s" %7$s

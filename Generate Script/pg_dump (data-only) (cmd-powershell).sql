@@ -1,4 +1,4 @@
--- Generate cmdlet script to pg_dump (Schema-only) a database using powershell
+-- Generate cmdlet script to pg_dump (data-only) a database using powershell
 -- Provide the following connection details, utility directory, backup file directory, & log file directory 
 -- Then run the output in Windows CMD
 SET LOCAL util.dir = 'D:\Program Files\PostgreSQL\17\bin\pg_dump.exe'; -- %1$s
@@ -20,4 +20,4 @@ current_setting('util.database'),
 current_setting('util.jobs'),
 current_setting('util.backup_dir'),
 current_setting('util.log_dir')
-) AS "BACKUP (Schema-only) - Run in WIN CMD";
+) AS "BACKUP (Data-only) - Run in WIN CMD";
